@@ -120,8 +120,12 @@
                 <div class="tool-card">
                     <h4><i class="fas fa-box"></i> 商品マスタ</h4>
                     <p class="description">
-                        SKU、商品名、商品タイプ、シリアルありなしを含む商品の基本情報をCSV形式で作成します。<br>
-                        商品タイプ（通常品/販促用品什器）に応じてシリアルありなしの設定が可能です。
+                        フィールドは「SKU」「商品名」「商品タイプ」「シリアル有無」のみ<br>
+                        商品タイプ（item_type）は「通常品（0）」「販促用品什器（1）」のプルダウン<br>
+                        シリアル有無（attribute_5）は「シリアルあり（0）」「シリアルなし（1）」のプルダウン（通常品のときのみ有効）<br>
+                        ラベルは日本語、CSV出力は英語フィールド名<br>
+                        サンプルデータもこの仕様に合わせる<br>
+                        画面説明も修正
                     </p>
                     <button type="button" class="btn btn-download btn-lg" onclick="showDataInput('item')">
                         <i class="fas fa-edit"></i> 商品マスタを作成
@@ -199,7 +203,7 @@
                     ['SKU003', '販促用品什器A', '1', ''],
                     ['SKU004', 'サンプル商品C', '0', '0']
                 ],
-                description: 'item_type: 0=通常品, 1=販促用品什器 | attribute_5: 0=シリアルあり, 1=シリアルなし（通常品のみ）'
+                description: '商品タイプ: 通常品=0, 販促用品什器=1 ／ シリアル有無: シリアルあり=0, シリアルなし=1（通常品のみ選択可）'
             }
         };
 
@@ -317,7 +321,6 @@
                             </div>
                         `;
                     } else if (header === 'item_type' && currentType === 'item') {
-                        // 商品タイプはドロップダウンで選択
                         const options = [
                             {value: '0', label: '通常品'},
                             {value: '1', label: '販促用品什器'}
@@ -325,17 +328,13 @@
                         html += `
                             <div class="col-md-6 mb-2">
                                 <label class="form-label">商品タイプ</label>
-                                <select class="form-select" 
-                                        onchange="updateDataRow(${index}, '${header}', this.value)">
+                                <select class="form-select" onchange="updateDataRow(${index}, '${header}', this.value)">
                                     <option value="">選択してください</option>
-                                    ${options.map(option => 
-                                        `<option value="${option.value}" ${row[header] === option.value ? 'selected' : ''}>${option.label}</option>`
-                                    ).join('')}
+                                    ${options.map(option => `<option value="${option.value}" ${row[header] === option.value ? 'selected' : ''}>${option.label}</option>`).join('')}
                                 </select>
                             </div>
                         `;
                     } else if (header === 'attribute_5' && currentType === 'item') {
-                        // シリアルありなしはドロップダウンで選択（通常品の場合のみ有効）
                         const itemType = row['item_type'] || '';
                         const isDisabled = itemType !== '0';
                         const options = [
@@ -344,16 +343,26 @@
                         ];
                         html += `
                             <div class="col-md-6 mb-2">
-                                <label class="form-label">シリアルありなし</label>
-                                <select class="form-select" 
-                                        onchange="updateDataRow(${index}, '${header}', this.value)"
-                                        ${isDisabled ? 'disabled' : ''}>
+                                <label class="form-label">シリアル有無</label>
+                                <select class="form-select" onchange="updateDataRow(${index}, '${header}', this.value)" ${isDisabled ? 'disabled' : ''}>
                                     <option value="">選択してください</option>
-                                    ${options.map(option => 
-                                        `<option value="${option.value}" ${row[header] === option.value ? 'selected' : ''}>${option.label}</option>`
-                                    ).join('')}
+                                    ${options.map(option => `<option value="${option.value}" ${row[header] === option.value ? 'selected' : ''}>${option.label}</option>`).join('')}
                                 </select>
                                 ${isDisabled ? '<small class="text-muted">通常品の場合のみ選択可能です</small>' : ''}
+                            </div>
+                        `;
+                    } else if (header === 'name' && currentType === 'item') {
+                        html += `
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label">商品名</label>
+                                <input type="text" class="form-control" value="${row[header] || ''}" onchange="updateDataRow(${index}, '${header}', this.value)" placeholder="商品名を入力">
+                            </div>
+                        `;
+                    } else if (header === 'SKU' && currentType === 'item') {
+                        html += `
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label">SKU</label>
+                                <input type="text" class="form-control" value="${row[header] || ''}" onchange="updateDataRow(${index}, '${header}', this.value)" placeholder="SKUを入力">
                             </div>
                         `;
                     } else if (header === '入荷予定日') {
