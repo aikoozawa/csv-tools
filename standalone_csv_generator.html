@@ -457,7 +457,7 @@
                 const url = URL.createObjectURL(blob);
                 const now = new Date();
                 const pad = n => n.toString().padStart(2, '0');
-                const fileName = `商品登録_${now.getFullYear()}_${pad(now.getMonth()+1)}_${pad(now.getDate())}_${pad(now.getHours())}_${pad(now.getMinutes())}_${pad(now.getSeconds())}.csv`;
+                const fileName = `商品マスタ_${now.getFullYear()}_${pad(now.getMonth()+1)}_${pad(now.getDate())}_${pad(now.getHours())}_${pad(now.getMinutes())}_${pad(now.getSeconds())}.csv`;
                 link.setAttribute('href', url);
                 link.setAttribute('download', fileName);
                 link.style.visibility = 'hidden';
@@ -468,21 +468,21 @@
         }
 
         function generateCSV(headers, data) {
-            // BOMを追加（Excelで日本語が正しく表示されるように）
-            let csv = '\uFEFF';
+            // BOMは追加しない（PHP側でBOM除去処理を追加したため）
+            let csv = '';
             
-            // ヘッダー行
-            csv += headers.map(header => `"${header}"`).join(',') + '\n';
+            // ヘッダー行（ダブルクォートなし）
+            csv += headers.join(',') + '\n';
             
             // データ行
             data.forEach(row => {
                 const values = headers.map(header => {
                     const value = row[header] || '';
-                    // カンマや改行が含まれる場合はダブルクォートで囲む
+                    // カンマや改行が含まれる場合のみダブルクォートで囲む
                     if (value.includes(',') || value.includes('\n') || value.includes('"')) {
                         return `"${value.replace(/"/g, '""')}"`;
                     }
-                    return `"${value}"`;
+                    return value;  // 通常の値はダブルクォートなし
                 });
                 csv += values.join(',') + '\n';
             });
