@@ -196,7 +196,7 @@
             },
             item: {
                 title: '商品マスタ作成',
-                headers: ['SKU', 'name', 'item_type', 'attribute_4', 'attribute_5'],
+                headers: ['SKU', '商品名', '商品タイプ', '梱包単位', 'シリアル有無'],
                 sampleData: [
                     ['SKU001', 'サンプル商品A', '0', '1', '0'],
                     ['SKU002', 'サンプル商品B', '0', '2', '1'],
@@ -272,9 +272,9 @@
             dataRows[index][field] = value;
             
             // 商品タイプが変更された場合、シリアルありなしをリセット
-            if (currentType === 'item' && field === 'item_type') {
+            if (currentType === 'item' && field === '商品タイプ') {
                 if (value !== '0') {
-                    dataRows[index]['attribute_5'] = '';
+                    dataRows[index]['シリアル有無'] = '';
                 }
                 // フォームを再描画してシリアルありなしフィールドの状態を更新
                 renderDataRows();
@@ -320,7 +320,7 @@
                                 </select>
                             </div>
                         `;
-                    } else if (header === 'item_type' && currentType === 'item') {
+                    } else if (header === '商品タイプ' && currentType === 'item') {
                         const options = [
                             {value: '0', label: '通常品'},
                             {value: '1', label: '販促用品什器'}
@@ -334,8 +334,8 @@
                                 </select>
                             </div>
                         `;
-                    } else if (header === 'attribute_5' && currentType === 'item') {
-                        const itemType = row['item_type'] || '';
+                    } else if (header === 'シリアル有無' && currentType === 'item') {
+                        const itemType = row['商品タイプ'] || '';
                         const isDisabled = itemType !== '0';
                         const options = [
                             {value: '0', label: 'シリアルあり'},
@@ -351,14 +351,14 @@
                                 ${isDisabled ? '<small class="text-muted">通常品の場合のみ選択可能です</small>' : ''}
                             </div>
                         `;
-                    } else if (header === 'attribute_4' && currentType === 'item') {
+                    } else if (header === '梱包単位' && currentType === 'item') {
                         html += `
                             <div class="col-md-6 mb-2">
                                 <label class="form-label">梱包単位</label>
                                 <input type="number" class="form-control" value="${row[header] || ''}" onchange="updateDataRow(${index}, '${header}', this.value)" placeholder="梱包単位を入力">
                             </div>
                         `;
-                    } else if (header === 'name' && currentType === 'item') {
+                    } else if (header === '商品名' && currentType === 'item') {
                         html += `
                             <div class="col-md-6 mb-2">
                                 <label class="form-label">商品名</label>
@@ -400,7 +400,7 @@
                         
                         // 商品マスタのフィールド名を日本語に変換
                         if (currentType === 'item') {
-                            if (header === 'name') {
+                            if (header === '商品名') {
                                 label = '商品名';
                                 placeholder = '商品名を入力';
                             } else if (header === 'SKU') {
