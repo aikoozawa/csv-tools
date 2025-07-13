@@ -196,12 +196,12 @@
             },
             item: {
                 title: '商品マスタ作成',
-                headers: ['SKU', 'name', 'item_type', 'attribute_5'],
+                headers: ['SKU', 'name', 'item_type', 'attribute_4', 'attribute_5'],
                 sampleData: [
-                    ['SKU001', 'サンプル商品A', '0', '0'],
-                    ['SKU002', 'サンプル商品B', '0', '1'],
-                    ['SKU003', '販促用品什器A', '1', ''],
-                    ['SKU004', 'サンプル商品C', '0', '0']
+                    ['SKU001', 'サンプル商品A', '0', '1', '0'],
+                    ['SKU002', 'サンプル商品B', '0', '2', '1'],
+                    ['SKU003', '販促用品什器A', '1', '1', ''],
+                    ['SKU004', 'サンプル商品C', '0', '1', '0']
                 ],
                 description: '商品タイプ: 通常品=0, 販促用品什器=1 ／ シリアル有無: シリアルあり=0, シリアルなし=1（通常品のみ選択可）'
             }
@@ -349,6 +349,13 @@
                                     ${options.map(option => `<option value="${option.value}" ${row[header] === option.value ? 'selected' : ''}>${option.label}</option>`).join('')}
                                 </select>
                                 ${isDisabled ? '<small class="text-muted">通常品の場合のみ選択可能です</small>' : ''}
+                            </div>
+                        `;
+                    } else if (header === 'attribute_4' && currentType === 'item') {
+                        html += `
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label">梱包単位</label>
+                                <input type="number" class="form-control" value="${row[header] || ''}" onchange="updateDataRow(${index}, '${header}', this.value)" placeholder="梱包単位を入力">
                             </div>
                         `;
                     } else if (header === 'name' && currentType === 'item') {
