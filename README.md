@@ -28,7 +28,7 @@
 ## アクセス
 
 - **メインページ**:https://github.com/aikoozawa/csv-tools/
-- **CSVツール**: https://あなたのユーザー名.github.io/csv-tools/standalone_csv_generator.html
+- **CSVツール**:https://aikoozawa.github.io/csv-tools/standalone_csv_generator.html
 
 ## 注意
 
