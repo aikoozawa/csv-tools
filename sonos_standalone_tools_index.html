@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SONOS様向けCSV作成ツール</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .header-section {
+            background: linear-gradient(135deg, #222 0%, #444 100%);
+            color: white;
+            padding: 40px 0;
+            margin-bottom: 40px;
+        }
+        .tool-card {
+            margin-bottom: 30px;
+            border: 1px solid #bbb;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            background: white;
+        }
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+        .tool-card h3 {
+            color: #111;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #222;
+            padding-bottom: 15px;
+        }
+        .btn-tool {
+            padding: 15px 30px;
+            font-size: 16px;
+            border-radius: 25px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px 5px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        .btn-primary-tool {
+            background: linear-gradient(45deg, #111, #444);
+            border: none;
+            color: white;
+        }
+        .btn-primary-tool:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(34,34,34,0.2);
+            color: white;
+            text-decoration: none;
+        }
+        .btn-success-tool {
+            background: linear-gradient(45deg, #333, #888);
+            border: none;
+            color: white;
+        }
+        .btn-success-tool:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(34,34,34,0.2);
+            color: white;
+            text-decoration: none;
+        }
+        .description {
+            color: #555;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        .feature-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+        .feature-list li:before {
+            content: "✓";
+            color: #28a745;
+            font-weight: bold;
+            margin-right: 12px;
+            font-size: 16px;
+        }
+        .icon-large {
+            font-size: 64px;
+            margin-bottom: 25px;
+            color: #111;
+        }
+        .stats-box {
+            background: rgba(0,0,0,0.1);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+        }
+        .stats-number {
+            font-size: 48px;
+            font-weight: bold;
+            color: white;
+        }
+        .stats-label {
+            color: rgba(255,255,255,0.8);
+            font-size: 16px;
+        }
+        .advantage-section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        .advantage-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .advantage-icon {
+            font-size: 24px;
+            color: #111;
+            margin-right: 15px;
+            width: 40px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <div style="display: flex; align-items: center; gap: 16px;">
+                        <img src="/one/images/acca/sonos/sonos_image_1.jpg" alt="SONOSロゴ" style="height:50px; width:auto; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.08);">
+                        <div>
+                            <h1 style="margin-bottom: 0;"><i class="fas fa-file-csv"></i> SONOS様向けCSV作成ツール</h1>
+                            <p class="lead" style="margin-bottom: 0;">ONEシステムにインポートするためのCSV作成ツール群です</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stats-box">
+                        <div class="stats-number">2</div>
+                        <div class="stats-label">利用可能なツール</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="advantage-section">
+            <h3><i class="fas fa-star"></i> このツール集の特徴</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="advantage-item">
+                        <div class="advantage-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div>
+                            <strong>外部環境対応</strong><br>
+                            <small>PHP ONEシステムがなくても使用可能</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="advantage-item">
+                        <div class="advantage-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div>
+                            <strong>セキュリティ重視</strong><br>
+                            <small>データをサーバーに送信しません</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="advantage-item">
+                        <div class="advantage-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <div>
+                            <strong>レスポンシブ対応</strong><br>
+                            <small>スマートフォン・タブレットでも使用可能</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="advantage-item">
+                        <div class="advantage-icon">
+                            <i class="fas fa-download"></i>
+                        </div>
+                        <div>
+                            <strong>ワンクリックダウンロード</strong><br>
+                            <small>簡単操作でCSVファイルを作成</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="tool-card">
+                    <div class="text-center">
+                        <i class="fas fa-edit icon-large"></i>
+                    </div>
+                    <h3><i class="fas fa-edit"></i> データ入力CSV作成ツール</h3>
+                    <p class="description">
+                        データを入力してCSVファイルを作成できる高度なツールです。<br>
+                        フォームでデータを入力し、リアルタイムでCSVを生成できます。
+                    </p>
+                    <ul class="feature-list">
+                        <li>データ入力フォーム付き</li>
+                        <li>サンプルデータの読み込み機能</li>
+                        <li>リアルタイムプレビュー</li>
+                        <li>複数行のデータ入力対応</li>
+                        <li>入荷予定、出荷指示、取引先マスタ、商品マスタ対応</li>
+                    </ul>
+                    <div class="text-center">
+                        <a href="standalone_csv_generator.html" class="btn btn-primary-tool btn-tool">
+                            <i class="fas fa-play"></i> データ入力ツールを開く
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="tool-card">
+                    <div class="text-center">
+                        <i class="fas fa-file-download icon-large"></i>
+                    </div>
+                    <h3><i class="fas fa-file-download"></i> 簡単CSVテンプレート作成ツール</h3>
+                    <p class="description">
+                        ワンクリックでCSVテンプレートをダウンロードできるシンプルなツールです。<br>
+                        サンプルデータ付きのテンプレートで、効率的なデータ入力が可能です。
+                    </p>
+                    <ul class="feature-list">
+                        <li>ワンクリックでダウンロード</li>
+                        <li>サンプルデータ付きテンプレート</li>
+                        <li>美しいUIデザイン</li>
+                        <li>日本語文字化け対策済み</li>
+                        <li>Excelでの編集に最適化</li>
+                    </ul>
+                    <div class="text-center">
+                        <a href="simple_csv_template.html" class="btn btn-success-tool btn-tool">
+                            <i class="fas fa-download"></i> テンプレートツールを開く
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tool-card">
+                    <h3><i class="fas fa-question-circle"></i> ツールの選択ガイド</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5><i class="fas fa-edit"></i> データ入力CSV作成ツール</h5>
+                            <p><strong>こんな方におすすめ:</strong></p>
+                            <ul>
+                                <li>データを手動で入力したい方</li>
+                                <li>複数のデータ行を作成したい方</li>
+                                <li>リアルタイムでCSVの内容を確認したい方</li>
+                                <li>サンプルデータを参考にしながら入力したい方</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h5><i class="fas fa-file-download"></i> 簡単CSVテンプレート作成ツール</h5>
+                            <p><strong>こんな方におすすめ:</strong></p>
+                            <ul>
+                                <li>すぐにテンプレートが欲しい方</li>
+                                <li>サンプルデータ付きのテンプレートが必要な方</li>
+                                <li>シンプルで使いやすいツールを求める方</li>
+                                <li>Excelでデータを入力したい方</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-info">
+                    <h4><i class="fas fa-info-circle"></i> 使用方法</h4>
+                    <ol>
+                        <li>用途に応じて適切なツールを選択してください</li>
+                        <li>ツールのページでCSVファイルを作成またはダウンロードしてください</li>
+                        <li>ダウンロードしたファイルをExcelで開いて編集してください</li>
+                        <li>必要に応じてデータを追加・修正してください</li>
+                        <li>CSV形式で保存してシステムにアップロードしてください</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-warning">
+                    <h4><i class="fas fa-exclamation-triangle"></i> 重要事項</h4>
+                    <ul>
+                        <li><strong>外部環境対応:</strong> これらのツールはPHP ONEシステムに依存しません</li>
+                        <li><strong>セキュリティ:</strong> データはサーバーに送信されず、ブラウザ内で処理されます</li>
+                        <li><strong>互換性:</strong> モダンなブラウザ（Chrome、Firefox、Safari、Edge）で動作します</li>
+                        <li><strong>オフライン対応:</strong> 一度読み込めば、インターネット接続なしでも使用可能です</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-success">
+                    <h4><i class="fas fa-check-circle"></i> サポート</h4>
+                    <p>ツールの使い方や技術的な問題について不明な点がある場合は、お気軽にお問い合わせください。</p>
+                    <p>また、新しい機能のリクエストや改善提案も歓迎します。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // ページ読み込み時の初期化
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('SONOS様向けCSV作成ツールが読み込まれました');
+        });
+    </script>
+</body>
+</html> 
